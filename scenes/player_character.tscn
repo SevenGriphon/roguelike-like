@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://srxt5ejjugd0"]
+[gd_scene load_steps=62 format=3 uid="uid://srxt5ejjugd0"]
 
 [ext_resource type="Script" uid="uid://bybqbd2cyy41" path="res://scripts/Player/player_character.gd" id="1_kww55"]
 [ext_resource type="Texture2D" uid="uid://cnx0foynbjha8" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="2_4h0vy"]
@@ -8,10 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://cbvysv6p02hgh" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png" id="4_6unfe"]
 [ext_resource type="Texture2D" uid="uid://bkgckfv71v2al" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="5_2vmgx"]
 [ext_resource type="Script" uid="uid://bika7ejgs4vin" path="res://scripts/Player/player_state_machine.gd" id="8_iadup"]
-[ext_resource type="Script" uid="uid://bq8isa1h30ky4" path="res://scenes/mele_attack_hurtbox.gd" id="8_s7f3b"]
+[ext_resource type="Script" uid="uid://bq8isa1h30ky4" path="res://scripts/mele_attack_hurtbox.gd" id="8_s7f3b"]
 [ext_resource type="Script" uid="uid://gkaynr67ttqt" path="res://scripts/Player/States/PlayerIdle.gd" id="9_herhr"]
 [ext_resource type="Script" uid="uid://uebd7ubvjqvv" path="res://scripts/Player/States/PlayerRun.gd" id="10_herhr"]
 [ext_resource type="Script" uid="uid://biivu2vmyjsoh" path="res://scripts/Player/States/PlayerMeleAttack.gd" id="11_xb3ya"]
+[ext_resource type="Script" uid="uid://b0d6umguailmq" path="res://scripts/Player/States/PlayerRangeAttack.gd" id="13_c4hvp"]
+[ext_resource type="PackedScene" uid="uid://7pemrjyw5k5h" path="res://scenes/arrow.tscn" id="14_2vlw4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vmgx"]
 atlas = ExtResource("2_uj7mf")
@@ -463,6 +465,48 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_2vlw4"]
+resource_name = "range_attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 8]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerStateMachine/RangeAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire_arrow"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_herhr"]
 resource_name = "run"
 length = 0.8
@@ -498,6 +542,7 @@ _data = {
 &"death": SubResource("Animation_pxja8"),
 &"idle": SubResource("Animation_iadup"),
 &"mele_attack": SubResource("Animation_uj7mf"),
+&"range_attack": SubResource("Animation_2vlw4"),
 &"run": SubResource("Animation_herhr")
 }
 
@@ -550,5 +595,11 @@ metadata/_custom_type_script = "uid://uebd7ubvjqvv"
 script = ExtResource("11_xb3ya")
 metadata/_custom_type_script = "uid://biivu2vmyjsoh"
 
+[node name="RangeAttack" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("13_c4hvp")
+arrow_tscn = ExtResource("14_2vlw4")
+metadata/_custom_type_script = "uid://b0d6umguailmq"
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="AttackPivot/meleAttackHurtbox" to="AttackPivot/meleAttackHurtbox" method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="PlayerStateMachine/RangeAttack" method="_attack_finished"]

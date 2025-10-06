@@ -15,6 +15,10 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[debug]
+
+gdscript/warnings/unused_parameter=0
+
 [display]
 
 window/stretch/mode="viewport"
@@ -55,6 +59,15 @@ mele_attack={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(179, 18),"global_position":Vector2(186, 55),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemies"
+2d_physics/layer_3="PlayerHurtboxes"
+2d_physics/layer_4="EnemyHurtboxes"
+2d_physics/layer_5="Walls"
+2d_physics/layer_6="Hitboxes"
 
 [rendering]
 
