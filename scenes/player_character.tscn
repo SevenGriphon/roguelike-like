@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cbvysv6p02hgh" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png" id="4_6unfe"]
 [ext_resource type="Texture2D" uid="uid://bkgckfv71v2al" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="5_2vmgx"]
 [ext_resource type="Script" uid="uid://bika7ejgs4vin" path="res://scripts/Player/player_state_machine.gd" id="8_iadup"]
-[ext_resource type="Script" uid="uid://bq8isa1h30ky4" path="res://scripts/mele_attack_hurtbox.gd" id="8_s7f3b"]
 [ext_resource type="Script" uid="uid://gkaynr67ttqt" path="res://scripts/Player/States/PlayerIdle.gd" id="9_herhr"]
+[ext_resource type="PackedScene" uid="uid://6d5y1lrckljh" path="res://scenes/hurtbox.tscn" id="9_joi77"]
 [ext_resource type="Script" uid="uid://uebd7ubvjqvv" path="res://scripts/Player/States/PlayerRun.gd" id="10_herhr"]
 [ext_resource type="Script" uid="uid://biivu2vmyjsoh" path="res://scripts/Player/States/PlayerMeleAttack.gd" id="11_xb3ya"]
 [ext_resource type="Script" uid="uid://b0d6umguailmq" path="res://scripts/Player/States/PlayerRangeAttack.gd" id="13_c4hvp"]
@@ -318,38 +318,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AttackPivot/meleAttackHurtbox/CollisionShape2D:disabled")
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [&"idle"]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:animation")
+tracks/2/path = NodePath("AttackPivot/MeleHurtbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"idle"]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_pxja8"]
@@ -438,31 +438,31 @@ tracks/1/keys = {
 "update": 1,
 "values": [&"mele_attack"]
 }
-tracks/2/type = "value"
+tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AttackPivot/meleAttackHurtbox/CollisionShape2D:disabled")
+tracks/2/path = NodePath("PlayerStateMachine/MeleAttack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerStateMachine/MeleAttack")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"_attack_finished"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackPivot/MeleHurtbox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_2vlw4"]
@@ -564,12 +564,10 @@ shape = SubResource("CapsuleShape2D_xb3ya")
 [node name="AttackPivot" type="Node2D" parent="."]
 position = Vector2(0, -21)
 
-[node name="meleAttackHurtbox" type="Area2D" parent="AttackPivot"]
+[node name="MeleHurtbox" parent="AttackPivot" instance=ExtResource("9_joi77")]
 position = Vector2(0, 21)
-collision_mask = 2
-script = ExtResource("8_s7f3b")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/meleAttackHurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/MeleHurtbox"]
 position = Vector2(41, -18)
 shape = SubResource("RectangleShape2D_6rdx2")
 disabled = true
@@ -601,5 +599,4 @@ arrow_tscn = ExtResource("14_2vlw4")
 metadata/_custom_type_script = "uid://b0d6umguailmq"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="AttackPivot/meleAttackHurtbox" to="AttackPivot/meleAttackHurtbox" method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="PlayerStateMachine/RangeAttack" method="_attack_finished"]
