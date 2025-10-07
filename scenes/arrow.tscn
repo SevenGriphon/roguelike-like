@@ -1,21 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://7pemrjyw5k5h"]
+[gd_scene load_steps=5 format=3 uid="uid://7pemrjyw5k5h"]
 
 [ext_resource type="Script" uid="uid://ctdbgagapn7vi" path="res://scripts/arrow.gd" id="1_23jat"]
 [ext_resource type="Texture2D" uid="uid://ccyjhnyu1kr2x" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Arrow(Projectile)/Arrow01(100x100).png" id="1_umosx"]
+[ext_resource type="PackedScene" uid="uid://6d5y1lrckljh" path="res://scenes/hurtbox.tscn" id="3_q8ifc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23jat"]
 size = Vector2(38, 14)
 
-[node name="Arrow" type="Area2D"]
-collision_mask = 18
+[node name="Arrow" type="Node2D"]
 script = ExtResource("1_23jat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("1_umosx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" parent="." instance=ExtResource("3_q8ifc")]
+collision_mask = 48
+monitorable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_23jat")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

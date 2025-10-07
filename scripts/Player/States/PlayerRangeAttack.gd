@@ -30,7 +30,7 @@ func handle_input(event : InputEvent) -> PlayerState:
 
 func fire_arrow():
 	var mouse_angle = player.get_local_mouse_position().angle()
-	var arrow :Area2D = arrow_tscn.instantiate()
+	var arrow :Node2D = arrow_tscn.instantiate()
 	arrow.rotation = mouse_angle
 	arrow.position = player.position + player.attack_pivot.position
 	get_tree().current_scene.add_child(arrow)
