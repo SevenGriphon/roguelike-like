@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://b8jtntmxx8iny"]
+[gd_scene load_steps=60 format=3 uid="uid://b8jtntmxx8iny"]
 
 [ext_resource type="PackedScene" uid="uid://q11cbqlpch72" path="res://scenes/enemy.tscn" id="1_s5mlm"]
 [ext_resource type="Script" uid="uid://vj22j0nik50b" path="res://scripts/Orc/orc.gd" id="2_nvs4g"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ceufcs5qouo8x" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Hurt.png" id="6_33ppp"]
 [ext_resource type="Script" uid="uid://b371025x8chhk" path="res://scripts/Orc/enemy_state_manager.gd" id="9_33ppp"]
 [ext_resource type="Script" uid="uid://dmexfrixnpd2p" path="res://scripts/Orc/enemy_hurtbox.gd" id="9_c6xmr"]
+[ext_resource type="PackedScene" uid="uid://dblcm8mlo2n5l" path="res://scenes/hitbox.tscn" id="9_raqv5"]
 [ext_resource type="Script" uid="uid://bccd5whjsxdya" path="res://scripts/Orc/States/EnemyIdle.gd" id="10_sab3t"]
 [ext_resource type="Script" uid="uid://bixis5i1a3a2w" path="res://scripts/Orc/States/EnemyFollow.gd" id="11_dg8k4"]
 [ext_resource type="Script" uid="uid://dadro0spqe31g" path="res://scripts/Orc/States/EnemyHurt.gd" id="12_ivc2h"]
@@ -382,8 +383,9 @@ _data = {
 &"attack": SubResource("Animation_1xkto")
 }
 
-[node name="Orc" instance=ExtResource("1_s5mlm")]
+[node name="Orc" node_paths=PackedStringArray("hitbox") instance=ExtResource("1_s5mlm")]
 script = ExtResource("2_nvs4g")
+hitbox = NodePath("Hitbox")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -21)
@@ -393,10 +395,18 @@ animation = &"death"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+visible = false
 position = Vector2(-2, -23)
 shape = SubResource("CapsuleShape2D_n4pcg")
 
-[node name="AttackPivot" type="Node2D" parent="." index="2"]
+[node name="Hitbox" parent="." index="2" instance=ExtResource("9_raqv5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(-2, -23)
+shape = SubResource("CapsuleShape2D_n4pcg")
+
+[node name="AttackPivot" type="Node2D" parent="." index="3"]
+visible = false
 
 [node name="Hitbox" type="Area2D" parent="AttackPivot" index="0" node_paths=PackedStringArray("enemy")]
 script = ExtResource("9_c6xmr")
@@ -407,12 +417,12 @@ position = Vector2(0, -22)
 shape = SubResource("RectangleShape2D_48uv6")
 disabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 libraries = {
 &"": SubResource("AnimationLibrary_sab3t")
 }
 
-[node name="StateManager" type="Node" parent="." index="4" node_paths=PackedStringArray("initial_state", "enemy")]
+[node name="StateManager" type="Node" parent="." index="5" node_paths=PackedStringArray("initial_state", "enemy")]
 script = ExtResource("9_33ppp")
 initial_state = NodePath("Idle")
 enemy = NodePath("..")
