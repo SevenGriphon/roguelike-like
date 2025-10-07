@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://srxt5ejjugd0"]
+[gd_scene load_steps=63 format=3 uid="uid://srxt5ejjugd0"]
 
 [ext_resource type="Script" uid="uid://bybqbd2cyy41" path="res://scripts/Player/player_character.gd" id="1_kww55"]
 [ext_resource type="Texture2D" uid="uid://cnx0foynbjha8" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="2_4h0vy"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://biivu2vmyjsoh" path="res://scripts/Player/States/PlayerMeleAttack.gd" id="11_xb3ya"]
 [ext_resource type="Script" uid="uid://b0d6umguailmq" path="res://scripts/Player/States/PlayerRangeAttack.gd" id="13_c4hvp"]
 [ext_resource type="PackedScene" uid="uid://7pemrjyw5k5h" path="res://scenes/arrow.tscn" id="14_2vlw4"]
+[ext_resource type="PackedScene" uid="uid://dblcm8mlo2n5l" path="res://scenes/hitbox.tscn" id="15_joi77"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vmgx"]
 atlas = ExtResource("2_uj7mf")
@@ -558,6 +559,7 @@ sprite_frames = SubResource("SpriteFrames_herhr")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -25)
 shape = SubResource("CapsuleShape2D_xb3ya")
 
@@ -598,5 +600,13 @@ script = ExtResource("13_c4hvp")
 arrow_tscn = ExtResource("14_2vlw4")
 metadata/_custom_type_script = "uid://b0d6umguailmq"
 
+[node name="Hitbox" parent="." instance=ExtResource("15_joi77")]
+collision_layer = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -25)
+shape = SubResource("CapsuleShape2D_xb3ya")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="PlayerStateMachine/RangeAttack" method="_attack_finished"]
+[connection signal="damaged" from="Hitbox" to="." method="_on_damaged"]

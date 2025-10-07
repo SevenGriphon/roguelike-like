@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://dwahlpsfsytay" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Death.png" id="5_48uv6"]
 [ext_resource type="Texture2D" uid="uid://ceufcs5qouo8x" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Hurt.png" id="6_33ppp"]
 [ext_resource type="Script" uid="uid://b371025x8chhk" path="res://scripts/Orc/enemy_state_manager.gd" id="9_33ppp"]
-[ext_resource type="Script" uid="uid://dmexfrixnpd2p" path="res://scripts/Orc/enemy_hurtbox.gd" id="9_c6xmr"]
 [ext_resource type="PackedScene" uid="uid://dblcm8mlo2n5l" path="res://scenes/hitbox.tscn" id="9_raqv5"]
 [ext_resource type="Script" uid="uid://bccd5whjsxdya" path="res://scripts/Orc/States/EnemyIdle.gd" id="10_sab3t"]
 [ext_resource type="Script" uid="uid://bixis5i1a3a2w" path="res://scripts/Orc/States/EnemyFollow.gd" id="11_dg8k4"]
+[ext_resource type="PackedScene" uid="uid://6d5y1lrckljh" path="res://scenes/hurtbox.tscn" id="11_rso78"]
 [ext_resource type="Script" uid="uid://dadro0spqe31g" path="res://scripts/Orc/States/EnemyHurt.gd" id="12_ivc2h"]
 [ext_resource type="Script" uid="uid://dbrkb22rnieay" path="res://scripts/Orc/States/EnemyAgresiveFollow.gd" id="13_0iu7c"]
 [ext_resource type="Script" uid="uid://bay7pj11mjx8f" path="res://scripts/Orc/States/EnemyAttack.gd" id="14_1xkto"]
@@ -313,7 +313,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AttackPivot/Hitbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("AttackPivot/Hurtbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -341,7 +341,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AttackPivot/Hitbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("AttackPivot/Hurtbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -391,7 +391,7 @@ hitbox = NodePath("Hitbox")
 position = Vector2(0, -21)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_kltx3")
-animation = &"death"
+animation = &"attack_2"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
@@ -400,19 +400,18 @@ position = Vector2(-2, -23)
 shape = SubResource("CapsuleShape2D_n4pcg")
 
 [node name="Hitbox" parent="." index="2" instance=ExtResource("9_raqv5")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(-2, -23)
 shape = SubResource("CapsuleShape2D_n4pcg")
 
 [node name="AttackPivot" type="Node2D" parent="." index="3"]
-visible = false
 
-[node name="Hitbox" type="Area2D" parent="AttackPivot" index="0" node_paths=PackedStringArray("enemy")]
-script = ExtResource("9_c6xmr")
-enemy = NodePath("../..")
+[node name="Hurtbox" parent="AttackPivot" index="0" instance=ExtResource("11_rso78")]
+collision_mask = 64
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/Hitbox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/Hurtbox" index="0"]
 position = Vector2(0, -22)
 shape = SubResource("RectangleShape2D_48uv6")
 disabled = true
@@ -451,12 +450,12 @@ enemy = NodePath("../..")
 anim_sprite = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://dbrkb22rnieay"
 
-[node name="Attack" type="Node" parent="StateManager" index="4" node_paths=PackedStringArray("enemy", "anim_sprite", "anim_player", "hitbox")]
+[node name="Attack" type="Node" parent="StateManager" index="4" node_paths=PackedStringArray("enemy", "anim_sprite", "anim_player", "hurtbox")]
 script = ExtResource("14_1xkto")
 enemy = NodePath("../..")
 anim_sprite = NodePath("../../AnimatedSprite2D")
 anim_player = NodePath("AttackAnimationPlayer")
-hitbox = NodePath("../../AttackPivot/Hitbox")
+hurtbox = NodePath("../../AttackPivot/Hurtbox")
 metadata/_custom_type_script = "uid://bay7pj11mjx8f"
 
 [node name="AttackAnimationPlayer" type="AnimationPlayer" parent="StateManager/Attack" index="0"]
@@ -471,4 +470,3 @@ anim_sprite = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://c6vafoekqmwxq"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="AttackPivot/Hitbox" to="AttackPivot/Hitbox" method="_on_body_entered"]
