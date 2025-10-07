@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://qyb761w5fkhv"]
+[gd_scene load_steps=11 format=4 uid="uid://qyb761w5fkhv"]
 
 [ext_resource type="PackedScene" uid="uid://srxt5ejjugd0" path="res://scenes/player_character.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://b8jtntmxx8iny" path="res://scenes/orc.tscn" id="2_0wfyh"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cnjgt8wylai73" path="res://scenes/enemy_spawn_marker.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b11owtvwtskg8" path="res://scenes/tile_map.tscn" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://b668n57f786ri" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://dblcm8mlo2n5l" path="res://scenes/hitbox.tscn" id="7_o6xl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o6xl0"]
 texture = ExtResource("6_tefeu")
@@ -139,6 +140,9 @@ physics_layer_0/collision_layer = 16
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_o6xl0")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tipki"]
+radius = 64.0312
+
 [node name="Main" type="Node2D"]
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_o5qli")]
@@ -164,3 +168,10 @@ tile_map_data = PackedByteArray("AAACABAAAAAAAAQAAAADABAAAAAEAAQAAAAEABAAAAADAAQ
 [node name="DetailsLayer" type="TileMapLayer" parent="TileMap"]
 tile_map_data = PackedByteArray("AAAUAAMAAAAAAAkAAAANAAcAAAAAAAkAAAAfAAUAAAAAAAkAAAADAAQAAAAEAAcAAAAdAAUAAAAEAAcAAAADAA8AAAAHAAcAAAABAAgAAAAEAAYAAAAiAAcAAAAIAAYAAAAiAAkAAAAIAAYAAAAiAAgAAAAHAAcAAAAhABEAAAAFAAYAAAAXAAMAAAACAAkAAAA=")
 tile_set = SubResource("TileSet_tipki")
+
+[node name="Hitbox" parent="." instance=ExtResource("7_o6xl0")]
+position = Vector2(408, 394)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_tipki")
