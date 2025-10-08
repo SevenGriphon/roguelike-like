@@ -144,10 +144,11 @@ sources/0 = SubResource("TileSetAtlasSource_o6xl0")
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_o5qli")]
 position = Vector2(280, 226)
 
-[node name="EnemySpawner" type="Node" parent="."]
+[node name="EnemySpawner" type="Node" parent="." node_paths=PackedStringArray("tilemap")]
 script = ExtResource("4_jyhfs")
 orc_tscn = ExtResource("2_0wfyh")
 marker_tscn = ExtResource("5_tbgi4")
+tilemap = NodePath("../TileMap/MainLayer")
 
 [node name="Orc" parent="." instance=ExtResource("2_0wfyh")]
 position = Vector2(730, 396)
