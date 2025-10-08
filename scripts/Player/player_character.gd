@@ -7,6 +7,8 @@ class_name Player extends CharacterBody2D
 @export var health = 250
 
 signal damaged()
+signal dead()
+
 var direction : Vector2
 
 func set_animation(animation : String):
@@ -14,6 +16,7 @@ func set_animation(animation : String):
 
 func _ready() -> void:
 	player_state_machine.initiate(self)
+	DeathManager.set_player(self)
 
 func _process(delta: float) -> void:
 	direction.x = Input.get_axis("move_left", "move_right")
@@ -28,7 +31,10 @@ func _physics_process(delta: float) -> void:
 
 func _on_damaged(damage: Variant) -> void:
 	health -= damage
-	damaged.emit()
+	if health > 0:
+		damaged.emit()
+	else:
+		dead.emit()
 	
 
 #var speed = 150
