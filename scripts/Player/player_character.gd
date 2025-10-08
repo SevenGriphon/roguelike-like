@@ -10,6 +10,7 @@ signal damaged()
 signal dead()
 
 var direction : Vector2
+var invulnerable = false
 
 func set_animation(animation : String):
 	animation_player.play(animation)
@@ -30,6 +31,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_damaged(damage: Variant) -> void:
+	if invulnerable:
+		return
+	
 	health -= damage
 	if health > 0:
 		damaged.emit()

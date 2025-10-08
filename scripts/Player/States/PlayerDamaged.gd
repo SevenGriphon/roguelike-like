@@ -6,11 +6,12 @@ class_name PlayerDamaged extends PlayerState
 var anim_playing : bool = false
 
 func enter():
+	player.invulnerable = true
 	player.set_animation("hurt")
 	anim_playing = true
 
 func exit():
-	pass
+	player.invulnerable = false
 
 func update(delta) -> PlayerState:
 	if anim_playing:
