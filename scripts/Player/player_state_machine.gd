@@ -1,6 +1,6 @@
 class_name PlayerStateMachine extends Node
 
-var states : Array = []
+var states : Array[PlayerState] = []
 var current_state : PlayerState
 @export var initial_state : PlayerState
 
@@ -13,6 +13,9 @@ func initiate(player : Player):
 	for child in self.get_children():
 		if child is PlayerState:
 			states.append(child)
+	
+	for state in states:
+		state.state_machine = self
 	
 	if states.size() > 0:
 		if !initial_state:

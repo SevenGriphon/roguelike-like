@@ -4,6 +4,9 @@ class_name Player extends CharacterBody2D
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var attack_pivot = $AttackPivot
 @export var player_state_machine : PlayerStateMachine
+@export var health = 250
+
+signal damaged()
 var direction : Vector2
 
 func set_animation(animation : String):
@@ -24,10 +27,11 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_damaged(damage: Variant) -> void:
-	print("Player was damaged!")
+	health -= damage
+	damaged.emit()
+	
 
 #var speed = 150
-#var health = 250
 #var isAttacking = false
 #var is_hurt = false
 #var mele_damage = 80
