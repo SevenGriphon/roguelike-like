@@ -383,10 +383,11 @@ _data = {
 &"attack": SubResource("Animation_1xkto")
 }
 
-[node name="Orc" node_paths=PackedStringArray("hitbox") instance=ExtResource("1_s5mlm")]
+[node name="Orc" node_paths=PackedStringArray("hitbox", "rayCast") instance=ExtResource("1_s5mlm")]
 collision_mask = 16
 script = ExtResource("2_nvs4g")
 hitbox = NodePath("Hitbox")
+rayCast = NodePath("")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -21)
@@ -396,6 +397,7 @@ animation = &"attack_2"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+visible = false
 position = Vector2(-2, -23)
 shape = SubResource("CapsuleShape2D_n4pcg")
 
@@ -407,6 +409,7 @@ position = Vector2(-2, -23)
 shape = SubResource("CapsuleShape2D_n4pcg")
 
 [node name="AttackPivot" type="Node2D" parent="." index="3"]
+visible = false
 
 [node name="Hurtbox" parent="AttackPivot" index="0" instance=ExtResource("11_rso78")]
 collision_mask = 64
