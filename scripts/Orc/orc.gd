@@ -9,7 +9,10 @@ signal damaged
 signal died
 
 func _ready() -> void:
+	var x = [1][1]
 	hitbox.damaged.connect(func(damage):
+		if health <= 0:
+			return
 		health -= damage
 		damaged.emit()
 		#if health > 0:
