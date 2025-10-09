@@ -384,6 +384,7 @@ _data = {
 }
 
 [node name="Orc" node_paths=PackedStringArray("hitbox") instance=ExtResource("1_s5mlm")]
+collision_mask = 16
 script = ExtResource("2_nvs4g")
 hitbox = NodePath("Hitbox")
 
@@ -395,7 +396,6 @@ animation = &"attack_2"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-visible = false
 position = Vector2(-2, -23)
 shape = SubResource("CapsuleShape2D_n4pcg")
 
