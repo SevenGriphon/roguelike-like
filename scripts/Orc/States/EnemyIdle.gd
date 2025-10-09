@@ -7,6 +7,7 @@ class_name EnemyIdle
 var player : CharacterBody2D
 
 func enter():
+	enemy.sees_player = false
 	enemy.velocity = Vector2.ZERO
 	anim_sprite.play("idle")
 	player = get_tree().get_first_node_in_group("Player")

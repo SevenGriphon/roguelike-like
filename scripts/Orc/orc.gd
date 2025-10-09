@@ -4,10 +4,13 @@ class_name Enemy extends CharacterBody2D
 @export var hitbox : Hitbox
 @export var rayCast : RayCast2D
 
-var health = 100
-var knockback = 100
 signal damaged
 signal died
+
+var health = 100
+var knockback = 100
+var sees_player : bool = false
+
 
 func _ready() -> void:
 	hitbox.damaged.connect(func(damage):

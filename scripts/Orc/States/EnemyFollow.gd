@@ -1,12 +1,16 @@
 extends  State
 class_name EnemyFollow
 
-@export var enemy : CharacterBody2D
+@export var enemy : Enemy
 @export var anim_sprite : AnimatedSprite2D
 @export var speed = 100
+@export var agro_label : AgroLabel
 var player :CharacterBody2D
 
 func enter():
+	if !enemy.sees_player:
+		agro_label.appear()
+	enemy.sees_player = true
 	player = get_tree().get_first_node_in_group("Player")
 
 func follow_player(ignore_distance = false):
