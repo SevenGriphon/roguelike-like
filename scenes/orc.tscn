@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://b8jtntmxx8iny"]
+[gd_scene load_steps=66 format=3 uid="uid://b8jtntmxx8iny"]
 
 [ext_resource type="PackedScene" uid="uid://q11cbqlpch72" path="res://scenes/enemy.tscn" id="1_s5mlm"]
 [ext_resource type="Script" uid="uid://vj22j0nik50b" path="res://scripts/Orc/orc.gd" id="2_nvs4g"]
@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://dbrkb22rnieay" path="res://scripts/Orc/States/EnemyAgresiveFollow.gd" id="13_0iu7c"]
 [ext_resource type="Script" uid="uid://bay7pj11mjx8f" path="res://scripts/Orc/States/EnemyAttack.gd" id="14_1xkto"]
 [ext_resource type="Script" uid="uid://c6vafoekqmwxq" path="res://scripts/Orc/States/EnemyDead.gd" id="15_tqcyk"]
+[ext_resource type="FontFile" uid="uid://mcnctt4ynba4" path="res://assets/fonts/PixelOperator8.ttf" id="18_rso78"]
+[ext_resource type="Script" uid="uid://imew53510w78" path="res://scripts/agro_label.gd" id="19_4tfue"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kltx3"]
 atlas = ExtResource("3_duj3f")
@@ -383,11 +385,101 @@ _data = {
 &"attack": SubResource("Animation_1xkto")
 }
 
-[node name="Orc" node_paths=PackedStringArray("hitbox", "rayCast") instance=ExtResource("1_s5mlm")]
+[sub_resource type="LabelSettings" id="LabelSettings_raqv5"]
+font = ExtResource("18_rso78")
+font_size = 24
+font_color = Color(1, 0.619608, 0, 1)
+
+[sub_resource type="Animation" id="Animation_yu442"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-6, -79)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cjqs3"]
+resource_name = "appear"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, -2),
+"update": 0,
+"values": [Vector2(-6, -79), Vector2(-6, -110)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kltx3"]
+_data = {
+&"RESET": SubResource("Animation_yu442"),
+&"appear": SubResource("Animation_cjqs3")
+}
+
+[node name="Orc" node_paths=PackedStringArray("hitbox") instance=ExtResource("1_s5mlm")]
 collision_mask = 16
 script = ExtResource("2_nvs4g")
 hitbox = NodePath("Hitbox")
-rayCast = NodePath("")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -21)
@@ -435,10 +527,11 @@ enemy = NodePath("../..")
 anim_sprite = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://bccd5whjsxdya"
 
-[node name="Follow" type="Node" parent="StateManager" index="1" node_paths=PackedStringArray("enemy", "anim_sprite")]
+[node name="Follow" type="Node" parent="StateManager" index="1" node_paths=PackedStringArray("enemy", "anim_sprite", "agro_label")]
 script = ExtResource("11_dg8k4")
 enemy = NodePath("../..")
 anim_sprite = NodePath("../../AnimatedSprite2D")
+agro_label = NodePath("../../AgroLabel")
 metadata/_custom_type_script = "uid://bixis5i1a3a2w"
 
 [node name="Hurt" type="Node" parent="StateManager" index="2" node_paths=PackedStringArray("enemy", "anim_sprite")]
@@ -447,10 +540,11 @@ enemy = NodePath("../..")
 anim_sprite = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://dadro0spqe31g"
 
-[node name="AgresiveFollow" type="Node" parent="StateManager" index="3" node_paths=PackedStringArray("enemy", "anim_sprite")]
+[node name="AgresiveFollow" type="Node" parent="StateManager" index="3" node_paths=PackedStringArray("enemy", "anim_sprite", "agro_label")]
 script = ExtResource("13_0iu7c")
 enemy = NodePath("../..")
 anim_sprite = NodePath("../../AnimatedSprite2D")
+agro_label = NodePath("../../AgroLabel")
 metadata/_custom_type_script = "uid://dbrkb22rnieay"
 
 [node name="Attack" type="Node" parent="StateManager" index="4" node_paths=PackedStringArray("enemy", "anim_sprite", "anim_player", "hurtbox")]
@@ -471,5 +565,23 @@ script = ExtResource("15_tqcyk")
 enemy = NodePath("../..")
 anim_sprite = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://c6vafoekqmwxq"
+
+[node name="AgroLabel" type="Label" parent="." index="6" node_paths=PackedStringArray("anim_player")]
+visible = false
+offset_left = -6.0
+offset_top = -79.0
+offset_right = 9.0
+offset_bottom = -34.0
+text = "!"
+label_settings = SubResource("LabelSettings_raqv5")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("19_4tfue")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AgroLabel" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_kltx3")
+}
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
