@@ -9,7 +9,7 @@ func enter():
 	player.set_animation("run")
 
 func exit():
-	pass
+	player.velocity = Vector2.ZERO
 
 func update(delta) -> PlayerState:
 	if player.direction == Vector2.ZERO:
