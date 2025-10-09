@@ -34,7 +34,7 @@ func get_valid_spawn_positions() -> Array:
 func queue_enemies(amount : int, positions : Array):
 	wave_enemies = []
 	for i in range(amount):
-		var enemy_pos = positions[randi_range(0, len(positions))]
+		var enemy_pos = positions[randi_range(0, len(positions)-1)]
 		
 		var marker :Node2D = marker_tscn.instantiate()
 		get_tree().current_scene.add_child.call_deferred(marker)
