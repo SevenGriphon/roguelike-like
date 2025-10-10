@@ -1,4 +1,6 @@
-extends Node2D
+class_name Arrow extends Node2D
+
+@export var hurtbox :Hurtbox
 
 var speed = 30
 

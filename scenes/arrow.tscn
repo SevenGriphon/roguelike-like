@@ -7,8 +7,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_23jat"]
 size = Vector2(38, 14)
 
-[node name="Arrow" type="Node2D"]
+[node name="Arrow" type="Node2D" node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("1_23jat")
+hurtbox = NodePath("Hurtbox")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
