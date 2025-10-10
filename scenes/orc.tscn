@@ -479,6 +479,8 @@ _data = {
 
 [node name="Orc" node_paths=PackedStringArray("hitbox", "pathfinding") instance=ExtResource("1_s5mlm")]
 collision_mask = 16
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("2_nvs4g")
 hitbox = NodePath("Hitbox")
 pathfinding = NodePath("NavigationAgent2D")
