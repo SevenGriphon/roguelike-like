@@ -1,6 +1,6 @@
 class_name Player extends CharacterBody2D
 
-@onready var animation_player = $AnimationPlayer
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var attack_pivot = $AttackPivot
 @export var player_state_machine : PlayerStateMachine

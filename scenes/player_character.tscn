@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://srxt5ejjugd0"]
+[gd_scene load_steps=69 format=3 uid="uid://srxt5ejjugd0"]
 
 [ext_resource type="Script" uid="uid://bybqbd2cyy41" path="res://scripts/Player/player_character.gd" id="1_kww55"]
 [ext_resource type="Texture2D" uid="uid://cnx0foynbjha8" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="2_4h0vy"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://c38pb3t4llmc5" path="res://scripts/Player/States/PlayerDamaged.gd" id="15_br6ma"]
 [ext_resource type="PackedScene" uid="uid://dblcm8mlo2n5l" path="res://scenes/hitbox.tscn" id="15_joi77"]
 [ext_resource type="Script" uid="uid://dlv1ilwpy3507" path="res://scripts/Player/States/PlayerDead.gd" id="16_xc70a"]
+[ext_resource type="Script" uid="uid://b25yhkjll1rpb" path="res://scripts/Player/States/PlayerChargeAttack.gd" id="17_2w5w8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vmgx"]
 atlas = ExtResource("2_uj7mf")
@@ -626,9 +627,55 @@ tracks/1/keys = {
 "values": [0, 7]
 }
 
+[sub_resource type="Animation" id="Animation_2w5w8"]
+resource_name = "charge_attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0, 6, 8]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerStateMachine/ChargeAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_charged"
+}, {
+"args": [],
+"method": &"_attack_finished"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6unfe"]
 _data = {
 &"RESET": SubResource("Animation_2vmgx"),
+&"charge_attack": SubResource("Animation_2w5w8"),
 &"dead": SubResource("Animation_br6ma"),
 &"death": SubResource("Animation_pxja8"),
 &"hurt": SubResource("Animation_xc70a"),
@@ -698,6 +745,11 @@ metadata/_custom_type_script = "uid://c38pb3t4llmc5"
 [node name="PlayerDead" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("16_xc70a")
 metadata/_custom_type_script = "uid://dlv1ilwpy3507"
+
+[node name="ChargeAttack" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("17_2w5w8")
+arrow_tscn = ExtResource("14_2vlw4")
+metadata/_custom_type_script = "uid://b25yhkjll1rpb"
 
 [node name="Hitbox" parent="." instance=ExtResource("15_joi77")]
 collision_layer = 64
