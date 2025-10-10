@@ -4,8 +4,9 @@ class_name EnemyAgresiveFollow
 var agro_time :float
 
 func enter():
-	super.enter()
+	super()
 	agro_time = randf_range(3, 5)
+	ignore_distance = true
 
 func update(delta):
 	if agro_time > 0:
@@ -15,4 +16,4 @@ func update(delta):
 		state_transition.emit(self, "Follow")
 
 func physics_update(delta):
-	follow_player(true)
+	super(delta)

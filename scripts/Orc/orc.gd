@@ -2,7 +2,7 @@ class_name Enemy extends CharacterBody2D
 
 @onready var anim_sprite :AnimatedSprite2D = $AnimatedSprite2D
 @export var hitbox : Hitbox
-@export var rayCast : RayCast2D
+@export var pathfinding : EnemyPathfinding
 
 signal damaged
 signal died

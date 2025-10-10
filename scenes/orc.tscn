@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://b8jtntmxx8iny"]
+[gd_scene load_steps=67 format=3 uid="uid://b8jtntmxx8iny"]
 
 [ext_resource type="PackedScene" uid="uid://q11cbqlpch72" path="res://scenes/enemy.tscn" id="1_s5mlm"]
 [ext_resource type="Script" uid="uid://vj22j0nik50b" path="res://scripts/Orc/orc.gd" id="2_nvs4g"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://c6vafoekqmwxq" path="res://scripts/Orc/States/EnemyDead.gd" id="15_tqcyk"]
 [ext_resource type="FontFile" uid="uid://mcnctt4ynba4" path="res://assets/fonts/PixelOperator8.ttf" id="18_rso78"]
 [ext_resource type="Script" uid="uid://imew53510w78" path="res://scripts/agro_label.gd" id="19_4tfue"]
+[ext_resource type="Script" uid="uid://bu7v86edesfic" path="res://scenes/pathfinding.gd" id="20_cjqs3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kltx3"]
 atlas = ExtResource("3_duj3f")
@@ -476,10 +477,11 @@ _data = {
 &"appear": SubResource("Animation_cjqs3")
 }
 
-[node name="Orc" node_paths=PackedStringArray("hitbox") instance=ExtResource("1_s5mlm")]
+[node name="Orc" node_paths=PackedStringArray("hitbox", "pathfinding") instance=ExtResource("1_s5mlm")]
 collision_mask = 16
 script = ExtResource("2_nvs4g")
 hitbox = NodePath("Hitbox")
+pathfinding = NodePath("NavigationAgent2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -21)
@@ -489,7 +491,6 @@ animation = &"attack_2"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-visible = false
 position = Vector2(-2, -23)
 shape = SubResource("CapsuleShape2D_n4pcg")
 
@@ -583,5 +584,9 @@ anim_player = NodePath("AnimationPlayer")
 libraries = {
 &"": SubResource("AnimationLibrary_kltx3")
 }
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="7"]
+debug_enabled = true
+script = ExtResource("20_cjqs3")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

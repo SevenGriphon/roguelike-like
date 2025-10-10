@@ -11,6 +11,7 @@ var alive_enemies : int
 var wave_enemies : Array = []
 
 func _ready() -> void:
+	return
 	start_new_wave()
 
 func start_new_wave() -> void:
