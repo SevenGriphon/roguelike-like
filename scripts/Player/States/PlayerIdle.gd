@@ -2,7 +2,7 @@ class_name PlayerIdle extends PlayerState
 
 @onready var run: PlayerRun = $"../Run"
 @onready var mele_attack: PlayerMeleAttack = $"../MeleAttack"
-@onready var range_attack: PlayerRangeAttack = $"../RangeAttack"
+@onready var attack: PlayerAttack = $"../Attack"
 
 func enter():
 	player.set_animation("idle")
@@ -23,5 +23,5 @@ func handle_input(event : InputEvent) -> PlayerState:
 	if event.is_action_pressed("mele_attack"):
 		return mele_attack
 	if event.is_action_pressed("attack"):
-		return range_attack
+		return attack
 	return null

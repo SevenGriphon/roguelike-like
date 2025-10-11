@@ -1,4 +1,4 @@
-class_name PlayerRangeAttack extends PlayerState
+class_name PlayerAttack extends PlayerState
 
 @onready var run: PlayerRun = $"../Run"
 @onready var idle: PlayerIdle = $"../Idle"

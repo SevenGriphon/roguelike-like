@@ -740,7 +740,7 @@ metadata/_custom_type_script = "uid://uebd7ubvjqvv"
 script = ExtResource("11_xb3ya")
 metadata/_custom_type_script = "uid://biivu2vmyjsoh"
 
-[node name="RangeAttack" type="Node" parent="PlayerStateMachine"]
+[node name="Attack" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("13_c4hvp")
 metadata/_custom_type_script = "uid://b0d6umguailmq"
 
@@ -777,5 +777,5 @@ metadata/_custom_type_script = "uid://xgkudslun48y"
 [connection signal="damaged" from="." to="PlayerStateMachine/PlayerDamaged" method="_on_player_damaged"]
 [connection signal="dead" from="." to="PlayerStateMachine/PlayerDead" method="_on_player_character_dead"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="PlayerStateMachine/RangeAttack" method="_attack_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="PlayerStateMachine/Attack" method="_attack_finished"]
 [connection signal="damaged" from="Hitbox" to="." method="_on_damaged"]
