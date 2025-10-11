@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://c6vafoekqmwxq" path="res://scripts/Orc/States/EnemyDead.gd" id="15_tqcyk"]
 [ext_resource type="FontFile" uid="uid://mcnctt4ynba4" path="res://assets/fonts/PixelOperator8.ttf" id="18_rso78"]
 [ext_resource type="Script" uid="uid://imew53510w78" path="res://scripts/agro_label.gd" id="19_4tfue"]
-[ext_resource type="Script" uid="uid://bu7v86edesfic" path="res://scenes/pathfinding.gd" id="20_cjqs3"]
+[ext_resource type="Script" uid="uid://bu7v86edesfic" path="res://scripts/pathfinding.gd" id="20_cjqs3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kltx3"]
 atlas = ExtResource("3_duj3f")

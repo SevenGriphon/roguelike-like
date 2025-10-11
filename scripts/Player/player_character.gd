@@ -5,6 +5,7 @@ class_name Player extends CharacterBody2D
 @onready var attack_pivot = $AttackPivot
 @export var player_state_machine : PlayerStateMachine
 @export var health = 250
+@export var current_weapon : Weapon
 
 signal damaged()
 signal dead()
