@@ -1,18 +1,18 @@
 class_name ChargeWeapon extends Weapon
 
 @export var arrow_tscn : PackedScene
+@export_category("Damage")
+@export var max_damage :int = 100
+@export var base_damage :int = 30
+@export var damage_increment :int = 80
 
-var player :Player
 var attack :bool
 var charged :bool
 var already_shot :bool
-var max_damage :int = 100
-var base_damage :int = 30
-var damage_increment :int = 80
 var damage :float
 
-func enter(_player):
-	player = _player
+func enter(_player, _animation_event):
+	super(_player, _animation_event)
 	attack = true
 	charged = false
 	already_shot = false
@@ -20,8 +20,6 @@ func enter(_player):
 	player.set_animation("charge_attack")
 	player.velocity = Vector2.ZERO
 
-func exit():
-	pass
 
 func update(delta) -> bool:
 	if !already_shot and charged and !Input.is_action_pressed("attack"):
@@ -43,6 +41,9 @@ func physics_update(delta) -> PlayerState:
 
 func handle_input(event : InputEvent) -> PlayerState:
 	return null
+	
+func exit():
+	super()
 
 func fire_arrow():
 	var mouse_angle = player.get_local_mouse_position().angle()
