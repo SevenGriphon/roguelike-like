@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://hmfffcskri2g"]
+
+[ext_resource type="Script" uid="uid://bsonh486cdlxx" path="res://scripts/interation_area.gd" id="1_hta71"]
+
+[node name="InterationZone" type="Area2D"]
+script = ExtResource("1_hta71")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
