@@ -13,7 +13,7 @@ var ignore_distance = false
 func _ready() -> void:
 	path_timer.wait_time = 0.5
 	self.add_child(path_timer)
-	path_timer.timeout.connect(_on_timer_timeout)
+	path_timer.timeout.connect(on_timer_timeout)
 
 func enter():
 	if !enemy.sees_player:
@@ -21,8 +21,9 @@ func enter():
 	enemy.sees_player = true
 	player = get_tree().get_first_node_in_group("Player")
 	path_timer.start(0.5)
+	on_timer_timeout()
 
-func _on_timer_timeout():
+func on_timer_timeout():
 	enemy.pathfinding.set_destination(player.global_position, speed)
 
 func follow_player():
