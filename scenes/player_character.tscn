@@ -694,7 +694,7 @@ _data = {
 collision_mask = 16
 script = ExtResource("1_kww55")
 player_state_machine = NodePath("PlayerStateMachine")
-current_weapon = NodePath("RangeWeapon")
+current_weapon = NodePath("ChargeWeapon")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -21)
