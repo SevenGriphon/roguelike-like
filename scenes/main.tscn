@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://qyb761w5fkhv"]
+[gd_scene load_steps=13 format=4 uid="uid://qyb761w5fkhv"]
 
 [ext_resource type="PackedScene" uid="uid://srxt5ejjugd0" path="res://scenes/player_character.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://b8jtntmxx8iny" path="res://scenes/orc.tscn" id="2_0wfyh"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cnjgt8wylai73" path="res://scenes/enemy_spawn_marker.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://b11owtvwtskg8" path="res://scenes/tile_map.tscn" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://b668n57f786ri" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="6_tefeu"]
-[ext_resource type="PackedScene" uid="uid://b3brogqbvc824" path="res://scenes/Bow.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://b3brogqbvc824" path="res://scenes/weapon.tscn" id="7_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://btvb601wjobu6" path="res://assets/bow.png" id="8_85g3d"]
+[ext_resource type="PackedScene" uid="uid://ditiw2l0d8e3u" path="res://scenes/weapons/range_weapon_logic.tscn" id="9_85g3d"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tefeu"]
 vertices = PackedVector2Array(35, 431, 67, 431, 67, 559, 15, 657, 291, 559, 291, 591, 541, 591, 541, 527, 573, 527, 771, 559, 803, 655, 573, 463, 771, 463, 803, 559, 1117, 497, 1103, 497, 1103, 495, 1117, 495, 1117, 431, 1137, 431, 1137, 657, 1117, 655, 15, 367, 35, 367, 849, 175, 1105, 175, 1105, 369, 1073, 369, 623, 207, 1073, 433, 1041, 433, 815, 401, 609, 239, 1041, 527, 1073, 527, 1073, 593, 847, 593, 847, 497, 815, 497, 529, 401, 529, 465, 497, 465, 305, 239, 497, 529, 335, 529, 335, 497, 111, 497, 111, 369, 79, 369, 79, 305, 47, 305, 47, 239, 65, 239, 65, 207, 79, 207, 79, 143, 305, 143, 609, 207, 623, 111, 849, 111, 1137, 15, 1137, 145, 1135, 145, 1135, 113, 893, 113, 893, 81, 879, 81, 879, 49, 593, 49, 593, 81, 579, 81, 579, 177, 349, 177, 349, 113, 335, 113, 335, 81, 49, 81, 49, 113, 35, 113, 15, 15, 35, 177, 17, 177, 17, 209, 15, 209)
@@ -175,5 +177,7 @@ tile_map_data = PackedByteArray("AAACABAAAAAAAAQAAAADABAAAAAEAAQAAAAEABAAAAADAAQ
 tile_map_data = PackedByteArray("AAAUAAMAAAAAAAkAAAANAAcAAAAAAAkAAAAfAAUAAAAAAAkAAAADAAQAAAAEAAcAAAAdAAUAAAAEAAcAAAADAA8AAAAHAAcAAAABAAgAAAAEAAYAAAAiAAcAAAAIAAYAAAAiAAkAAAAIAAYAAAAiAAgAAAAHAAcAAAAhABEAAAAFAAYAAAAXAAMAAAACAAkAAAA=")
 tile_set = SubResource("TileSet_tipki")
 
-[node name="Bow" parent="." instance=ExtResource("7_o6xl0")]
-position = Vector2(413, 366)
+[node name="Weapon" parent="." instance=ExtResource("7_o6xl0")]
+position = Vector2(369, 367)
+texture = ExtResource("8_85g3d")
+weapon_tscn = ExtResource("9_85g3d")

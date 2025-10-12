@@ -40,3 +40,8 @@ func _on_damaged(damage: Variant) -> void:
 		damaged.emit()
 	else:
 		dead.emit()
+
+func change_weapon(new_weapon : PackedScene):
+	current_weapon.queue_free()
+	current_weapon = new_weapon.instantiate()
+	self.add_child(current_weapon)

@@ -1,5 +1,6 @@
 class_name Weapon extends Node
 
+@export var texture :Texture
 var player :Player
 var animation_event : Signal
 

@@ -10,7 +10,6 @@ func enter(_player, _animation_event : Signal):
 	player.set_animation("range_attack")
 	player.velocity = Vector2.ZERO
 
-
 func update(delta) -> bool:
 	return !attack
 
@@ -19,7 +18,7 @@ func physics_update(delta) -> PlayerState:
 
 func handle_input(event : InputEvent) -> PlayerState:
 	return null
-	
+
 func exit():
 	super()
 

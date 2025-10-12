@@ -29,7 +29,6 @@ func update(delta) -> bool:
 	
 	if !already_shot and charged and Input.is_action_pressed("attack"):
 		damage = min(damage + damage_increment * delta, max_damage)
-		print(damage)
 	
 	if !charged and !Input.is_action_pressed("attack"):
 		attack = false

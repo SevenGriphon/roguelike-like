@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://srxt5ejjugd0"]
+[gd_scene load_steps=69 format=3 uid="uid://srxt5ejjugd0"]
 
 [ext_resource type="Script" uid="uid://bybqbd2cyy41" path="res://scripts/Player/player_character.gd" id="1_kww55"]
 [ext_resource type="Texture2D" uid="uid://cnx0foynbjha8" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="2_4h0vy"]
@@ -17,7 +17,6 @@
 [ext_resource type="Script" uid="uid://c38pb3t4llmc5" path="res://scripts/Player/States/PlayerDamaged.gd" id="15_br6ma"]
 [ext_resource type="PackedScene" uid="uid://dblcm8mlo2n5l" path="res://scenes/hitbox.tscn" id="15_joi77"]
 [ext_resource type="Script" uid="uid://dlv1ilwpy3507" path="res://scripts/Player/States/PlayerDead.gd" id="16_xc70a"]
-[ext_resource type="Script" uid="uid://8lgmpa2w2p8f" path="res://scripts/Weapons/range_weapon.gd" id="19_qwq0k"]
 [ext_resource type="Script" uid="uid://xgkudslun48y" path="res://scripts/Weapons/charge_weapon.gd" id="20_eomf4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vmgx"]
@@ -694,7 +693,7 @@ _data = {
 collision_mask = 16
 script = ExtResource("1_kww55")
 player_state_machine = NodePath("PlayerStateMachine")
-current_weapon = NodePath("RangeWeapon")
+current_weapon = NodePath("ChargeWeapon")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -21)
@@ -757,11 +756,6 @@ collision_layer = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, -25)
 shape = SubResource("CapsuleShape2D_xb3ya")
-
-[node name="RangeWeapon" type="Node" parent="."]
-script = ExtResource("19_qwq0k")
-arrow_tscn = ExtResource("14_2vlw4")
-metadata/_custom_type_script = "uid://8lgmpa2w2p8f"
 
 [node name="ChargeWeapon" type="Node" parent="."]
 script = ExtResource("20_eomf4")
