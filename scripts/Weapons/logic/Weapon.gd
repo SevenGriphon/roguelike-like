@@ -1,7 +1,12 @@
 class_name Weapon extends Node
 
 var player :Player
+var data :WeaponData
 var animation_event : Signal
+
+func init(_player :Player, weapon_data :WeaponData):
+	player = _player
+	data = weapon_data
 
 func enter(_player : Player, _animation_event : Signal):
 	player = _player

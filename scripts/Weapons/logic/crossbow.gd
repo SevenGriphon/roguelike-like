@@ -1,7 +1,5 @@
 class_name RangeWeapon extends Weapon
 
-@export var arrow_tscn :PackedScene
-
 var attack :bool
 
 func enter(_player, _animation_event : Signal):
@@ -25,10 +23,11 @@ func exit():
 
 func _fire_arrow():
 	var mouse_angle = player.get_local_mouse_position().angle()
-	var arrow :Node2D = arrow_tscn.instantiate()
+	var arrow :Arrow = data.arrow_tscn.instantiate()
+	arrow.hurtbox.damage = data.damage
 	arrow.rotation = mouse_angle
 	arrow.position = player.position + player.attack_pivot.position
-	get_tree().current_scene.add_child(arrow)
+	player.get_tree().current_scene.add_child(arrow)
 
 func _attack_finished() -> void:
 	attack = false

@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://cns33t78uf7e7"]
+[gd_resource type="Resource" script_class="ArrowWeaponData" load_steps=5 format=3 uid="uid://crjvcj6l3nu36"]
 
-[ext_resource type="Script" uid="uid://c40oowmw88aqy" path="res://scripts/weapon_data.gd" id="1_ooo3w"]
+[ext_resource type="Script" uid="uid://bk7awy34658ug" path="res://scripts/Weapons/data/arrow_weapon_data.gd" id="1_33d13"]
+[ext_resource type="PackedScene" uid="uid://7pemrjyw5k5h" path="res://scenes/arrow.tscn" id="1_rdpwg"]
 [ext_resource type="Texture2D" uid="uid://b3xoq8cs34s07" path="res://assets/crossbow.png" id="2_n8dor"]
-[ext_resource type="Script" uid="uid://8lgmpa2w2p8f" path="res://scripts/Weapons/crossbow.gd" id="3_ooo3w"]
+[ext_resource type="Script" uid="uid://8lgmpa2w2p8f" path="res://scripts/Weapons/logic/crossbow.gd" id="4_n8dor"]
 
 [resource]
-script = ExtResource("1_ooo3w")
+script = ExtResource("1_33d13")
+arrow_tscn = ExtResource("1_rdpwg")
 texture = ExtResource("2_n8dor")
-weapon_script = ExtResource("3_ooo3w")
+weapon_script = ExtResource("4_n8dor")
 damage = 50
-metadata/_custom_type_script = "uid://c40oowmw88aqy"
+metadata/_custom_type_script = "uid://bk7awy34658ug"

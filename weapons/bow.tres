@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://djv7b5yjfxe1w"]
+[gd_resource type="Resource" script_class="BowData" load_steps=5 format=3 uid="uid://b8u5op2nv0nf6"]
 
-[ext_resource type="Script" uid="uid://c40oowmw88aqy" path="res://scripts/weapon_data.gd" id="1_sk5m8"]
+[ext_resource type="Script" uid="uid://ctwwmqs7ptnwx" path="res://scripts/Weapons/data/bow_data.gd" id="1_pn4i0"]
+[ext_resource type="PackedScene" uid="uid://7pemrjyw5k5h" path="res://scenes/arrow.tscn" id="1_xpqvi"]
 [ext_resource type="Texture2D" uid="uid://23vor62oxdaa" path="res://assets/bow.png" id="2_xpqvi"]
-[ext_resource type="Script" uid="uid://xgkudslun48y" path="res://scripts/Weapons/bow.gd" id="3_78lal"]
+[ext_resource type="Script" uid="uid://xgkudslun48y" path="res://scripts/Weapons/logic/bow.gd" id="4_78lal"]
 
 [resource]
-script = ExtResource("1_sk5m8")
+script = ExtResource("1_pn4i0")
+max_damage = 100
+pull_time = 1.5
+arrow_tscn = ExtResource("1_xpqvi")
 texture = ExtResource("2_xpqvi")
-weapon_script = ExtResource("3_78lal")
+weapon_script = ExtResource("4_78lal")
 damage = 30
-metadata/_custom_type_script = "uid://c40oowmw88aqy"
+metadata/_custom_type_script = "uid://ctwwmqs7ptnwx"

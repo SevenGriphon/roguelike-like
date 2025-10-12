@@ -5,13 +5,14 @@ class_name Player extends CharacterBody2D
 @onready var attack_pivot = $AttackPivot
 @export var player_state_machine : PlayerStateMachine
 @export var health = 250
-@export var current_weapon : Weapon
+@export var starting_weapon :WeaponData
 
 signal damaged()
 signal dead()
 
+var current_weapon : Weapon
 var direction : Vector2
-var invulnerable = false
+var invulnerable :bool = false
 
 func set_animation(animation : String):
 	animation_player.play(animation)
@@ -19,6 +20,7 @@ func set_animation(animation : String):
 func _ready() -> void:
 	player_state_machine.initiate(self)
 	DeathManager.set_player(self)
+	change_weapon(starting_weapon)
 
 func _process(delta: float) -> void:
 	direction.x = Input.get_axis("move_left", "move_right")
@@ -40,3 +42,7 @@ func _on_damaged(damage: Variant) -> void:
 		damaged.emit()
 	else:
 		dead.emit()
+
+func change_weapon(weapon_data :WeaponData):
+	current_weapon = weapon_data.weapon_script.new()
+	current_weapon.init(self, weapon_data)
