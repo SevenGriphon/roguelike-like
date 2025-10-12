@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://cns33t78uf7e7"]
+
+[ext_resource type="Script" uid="uid://c40oowmw88aqy" path="res://scripts/weapon_data.gd" id="1_ooo3w"]
+[ext_resource type="Texture2D" uid="uid://b3xoq8cs34s07" path="res://assets/crossbow.png" id="2_n8dor"]
+[ext_resource type="Script" uid="uid://8lgmpa2w2p8f" path="res://scripts/Weapons/crossbow.gd" id="3_ooo3w"]
+
+[resource]
+script = ExtResource("1_ooo3w")
+texture = ExtResource("2_n8dor")
+weapon_script = ExtResource("3_ooo3w")
+damage = 50
+metadata/_custom_type_script = "uid://c40oowmw88aqy"
