@@ -6,8 +6,8 @@ var already_shot :bool
 var damage :float
 var damage_increment :float
 
-func init(player :Player, weapon_data :WeaponData):
-	super(player, weapon_data)
+func init(_player :Player, weapon_data :WeaponData):
+	super(_player, weapon_data)
 	damage_increment = data.max_damage / data.pull_time
 
 func enter(_player, _animation_event):
